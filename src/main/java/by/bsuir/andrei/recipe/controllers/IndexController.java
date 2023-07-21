@@ -1,33 +1,26 @@
 package by.bsuir.andrei.recipe.controllers;
 
-import by.bsuir.andrei.recipe.domain.Category;
-import by.bsuir.andrei.recipe.domain.UnitOfMeasure;
-import by.bsuir.andrei.recipe.repositories.CategoryRepository;
-import by.bsuir.andrei.recipe.repositories.UnitOfMeasureRepository;
+import by.bsuir.andrei.recipe.domain.Recipe;
+import by.bsuir.andrei.recipe.services.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 public class IndexController {
 
-    private final CategoryRepository categoryRepository;
-    private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "/index"})
-    public String getIndex() {
-        Optional<Category> optionalCategory = categoryRepository.findByDescription("Fast food");
-        Optional<UnitOfMeasure> optionalUnitOfMeasure = unitOfMeasureRepository.findByDescription("Ounce");
-
-        optionalCategory.ifPresent(category -> System.out.println(category.getId()));
-        optionalUnitOfMeasure.ifPresent(unit -> System.out.println(unit.getId()));
-        System.out.println("3к6--------------------42------_???????????????????/");
+    public String getIndex(Model model) {
+        List<Recipe> recipes = recipeService.getAll();
+        model.addAttribute("recipes", recipes);
         return "index";
     }
 }

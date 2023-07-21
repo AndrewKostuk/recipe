@@ -5,6 +5,57 @@
     <title>My Recipes</title>
 </head>
 <body>
-    <h1>My 9 APPLICATION</h1>
+    <h2 th:text="'List of recipes'">List of Recipes...</h2>
+    <table id="recipes" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>PrepTime</th>
+            <th>CookTime</th>
+            <th>Servings</th>
+            <th>Source</th>
+            <th>Url</th>
+            <th>Directions</th>
+            <th>Difficulty</th>
+            <th>Notes</th>
+            <th>Ingredients</th>
+            <th>Categories</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recipe : ${recipes}">
+            <td th:text="${recipe.id}">1</td>
+            <td th:text="${recipe.description}">a</td>
+            <td th:text="${recipe.prepTime}">b</td>
+            <td th:text="${recipe.cookTime}">b</td>
+            <td th:text="${recipe.servings}">b</td>
+            <td th:text="${recipe.source}">b</td>
+            <td th:text="${recipe.url}">b</td>
+            <td th:text="${recipe.directions}">b</td>
+            <td th:text="${recipe.difficulty}">b</td>
+            <td th:text="${recipe.notes.recipeNotes}">b</td>
+
+            <td>
+                <div th:each="ingredient : ${recipe.ingredients}">
+                    <ul>
+                        <li th:text="${ingredient.id}"></li>
+                        <li th:text="${ingredient.description}"></li>
+                        <li th:if="${ingredient.uom != null}" th:text="${ingredient.uom.id}"></li>
+                    </ul>
+                </div>
+            </td>
+
+            <td>
+                <div th:each="category : ${recipe.categories}">
+                    <ul>
+                        <li th:text="${category.id}"></li>
+                        <li th:text="${category.description}"></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
