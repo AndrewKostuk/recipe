@@ -4,6 +4,7 @@ import by.bsuir.andrei.recipe.domain.*;
 import by.bsuir.andrei.recipe.repositories.CategoryRepository;
 import by.bsuir.andrei.recipe.repositories.RecipeRepository;
 import by.bsuir.andrei.recipe.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Component
+@Slf4j
 public class DataLoader implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
@@ -29,6 +31,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        log.debug("I'm loading some data for us");
         createGuacamole();
         createChicken();
     }
