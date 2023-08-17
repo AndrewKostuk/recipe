@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
@@ -32,11 +33,19 @@ class IndexControllerTest {
 
     @Test
     void getIndex() {
+        //given
         final var recipes = List.of(new Recipe());
         when(recipeService.getAll()).thenReturn(recipes);
         String expected = "index";
-        Assertions.assertEquals(expected, indexController.getIndex(model));
+        ArgumentCaptor<List<Recipe>> captor = ArgumentCaptor.forClass(List.class);
+
+        //when
+        String actual = indexController.getIndex(model);
+
+        //then
+        Assertions.assertEquals(expected, actual);
         verify(recipeService, times(1)).getAll();
-        verify(model, times(1)).addAttribute("recipes", recipes);
+        verify(model, times(1)).addAttribute(eq("recipes"), captor.capture());
+        Assertions.assertEquals(1, captor.getValue().size());
     }
 }
