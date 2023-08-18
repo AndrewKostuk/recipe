@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class CategoryTest {
 
-    private Category category;
+    Category category;
 
     @BeforeEach
     public void setUp() {

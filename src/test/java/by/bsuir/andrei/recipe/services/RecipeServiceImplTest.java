@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class RecipeServiceImplTest {
 
-    private RecipeServiceImpl recipeService;
+    RecipeServiceImpl recipeService;
 
     @Mock
     private RecipeRepository recipeRepository;
